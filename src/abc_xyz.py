@@ -109,7 +109,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nПомилка при збереженні '{output_path}': {e}")
 
-    # 3. Збереження фінальної моделі
+ 
     model_path = 'data/final_abc_xyz_full_model.xlsx'
     try:
         sorted_res.to_excel(model_path, index=False)
