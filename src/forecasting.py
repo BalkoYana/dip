@@ -58,7 +58,7 @@ def run_forecast_logic(df_filtered, target_col, d_col, train_years, n_months, la
             'Помилка RF (%)': round(abs(y_test.values[i] - preds_rf[i]) / (y_test.values[i] + 1) * 100, 2)
         })
 
-    # Побудова графіка
+    
     plt.figure(figsize=(10, 5))
     plt.plot(train_data[d_col], train_data[target_col], label='Історія', alpha=0.4)
     plt.plot(test_data[d_col], y_test, 'g-s', label='Факт (Тест)')
@@ -73,7 +73,7 @@ def run_forecast_logic(df_filtered, target_col, d_col, train_years, n_months, la
     plt.savefig(f"{folder}/{label.replace('/', '_')}.png")
     plt.close()
 
-    # Визначаємо кращу модель
+    
     best_model = "Random Forest" if mape_rf < mape_lr else "Linear Regression"
 
     summary_row = {
@@ -111,12 +111,12 @@ def perform_flexible_forecast(df, mapping):
     else:
         targets_to_analyze = ['Загальні продажі']
 
-    # 2. ОБРАННЯ ПОКАЗНИКА
+    
     print("\n Що прогнозуємо? (0: Sales, 1: Qty)")
     target_choice = int(input("Введіть 0 або 1: "))
     target_col = mapping['sales_sum'] if target_choice == 0 else mapping['quantity']
 
-    # 3. НАЛАШТУВАННЯ ПЕРІОДІВ
+    
     years = sorted(df[d_col].dt.year.unique())
     print(f"\n Доступні роки: {years}")
     train_years = [int(y.strip()) for y in input("Роки для НАВЧАННЯ (напр. 2003,2004): ").split(',')]
@@ -137,7 +137,7 @@ def perform_flexible_forecast(df, mapping):
     final_report = pd.DataFrame(summaries)
     detailed_report = pd.DataFrame(detailed_forecasts)
 
-    # Візуалізація порівняння точності по об'єктах
+    
     if len(final_report) > 1:
         plt.figure(figsize=(12, 6))
         x = np.arange(len(final_report))
